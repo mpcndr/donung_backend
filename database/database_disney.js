@@ -144,7 +144,7 @@ exports.login_admin = async function (email, password) {
 };
 
 exports.allAdmin = async () => {
-  let Query = "SELECT * FROM admin;";
+  let Query = "SELECT * FROM disney_movie.admin;";
   let admin = await query(Query);
 
   let response = {
@@ -152,5 +152,25 @@ exports.allAdmin = async () => {
     admin,
   };
   // console.log(response.data.movie[0].movie_title);
+  return response;
+};
+
+exports.deleteAdmin = async (id) => {
+  let Query = `DELETE FROM admin WHERE (id_admin = '${id}');`;
+  let admin = await query(Query);
+
+  let response = {
+    isSuccess: true,
+  };
+  return response;
+};
+
+exports.addAdmin = async (email, user, password) => {
+  let Query = `insert into admin (email, password, admin_name) values('${email}', '${password}', '${user}')`;
+  let admin = await query(Query);
+
+  let response = {
+    isSuccess: true,
+  };
   return response;
 };

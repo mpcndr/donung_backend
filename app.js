@@ -71,11 +71,7 @@ disney.post("/admin", async (req, res) => {
   res.send(result);
 });
 
-disney.get("/allAdmin", adminMiddleWare, async (req, res) => {
-  let user = await worker.admin.allAdmin();
-  console.log("get all admin");
-  res.send(user);
-});
+
 
 disney.post("/favmovie", userMiddleWare, async (req, res) => {
   let user = req.body.user;
@@ -99,6 +95,29 @@ disney.post("/deleteMovieFav", userMiddleWare, async (req, res) => {
   let result = await worker.movie.deleteMovieFav(user, movie);
   res.send(result);
 });
+
+disney.get("/administrator", adminMiddleWare, async (req, res) => {
+  let user = await worker.admin.allAdmin();
+  console.log("get all admin");
+  res.send(user);
+}); 
+
+disney.delete("/administrator", adminMiddleWare, async (req, res) => {
+  let id = req.body.id_admin;
+  let result = await worker.admin.deleteAdmin(id);
+  console.log("delete admin");
+  res.send(result);
+})
+
+disney.post("/administrator", adminMiddleWare, async (req, res) => {
+  let email = req.body.email;
+  let user = req.body.user;
+  let password = req.body.password;
+
+  let result = await worker.admin.addAdmin(email, user, password);
+  console.log("dfsdfsdfsdf");
+  res.send(result);
+})
 
 disney.listen(envi.PORT, () => {
   console.log("--- start ---");

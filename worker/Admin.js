@@ -5,6 +5,22 @@ const envi = require("../envi");
 
 exports.allAdmin = async () => {
   let result = await db_disney.allAdmin();
+  console.log(result);
+  return result;
+};
+
+exports.deleteAdmin = async (id) => {
+  let result = await db_disney.deleteAdmin(id);
+  return result;
+};
+
+exports.addAdmin = async (email, user, password) => {
+  let encryptPassword = crypto
+    .createHash("sha256")
+    .update(password)
+    .digest("base64");
+  console.log(encryptPassword);
+  let result = await db_disney.addAdmin(email, user, encryptPassword);
   return result;
 };
 
